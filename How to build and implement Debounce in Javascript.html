@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to build and implement Debounce in Javascript</title>
+</head>
+
+<body>
+    <input type="text" onkeyup="debounceFn()">
+
+    <script>
+        let count = 0;
+
+        const expensiveFn = () => {
+            console.log(`I am called ${count} times`);
+            count++;
+        }
+
+
+
+        const debounceFn = debounce(expensiveFn, 300, true);
+
+
+
+        function debounce(callback, delay, immediate = false) {
+            // Holds the ID of the current timer
+            let timer;
+
+            // Return a new function that wraps the callback
+            return function (...args) {
+                // Check if this is the first call and if immediate execution is desired
+                let firstCallImmediate = !timer && immediate === true;
+
+                // If immediate is true and this is the first call, execute the callback right away
+                if (firstCallImmediate) {
+                    callback.call(this, ...args);
+                }
+
+                // Clear any existing timer to reset the delay
+                if (timer) clearTimeout(timer);
+
+                // Set a new timer that will run the callback after the delay
+                timer = setTimeout(() => {
+                    // If immediate is false, call the callback after the delay
+                    if (!immediate) {
+                        callback.call(this, ...args);
+                    }
+                    // Reset the timer after execution
+                    timer = null;
+                }, delay);
+            };
+        }
+    </script>
+</body>
+
+</html>

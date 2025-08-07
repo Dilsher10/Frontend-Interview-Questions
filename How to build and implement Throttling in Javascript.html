@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            height: 200vh;
+        }
+
+        p {
+            position: fixed;
+            font-size: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <p>Throttle Count: <span id="counter">0</span></p>
+    </div>
+
+
+    <script>
+
+        const counter = document.getElementById('counter');
+
+        let count = 0;
+
+        function expensiveFn() {
+            counter.textContent = count;
+            count++;
+        }
+
+
+        const throttleFn = throttle(expensiveFn, 1000);
+
+        document.addEventListener('scroll', throttleFn);
+
+
+        function throttle(callback, delay) {
+            let timer;
+            let lastTimeCalled = 0;
+
+            return function (...args) {
+                let currentTime = Date.now();
+                let differnceTime = currentTime - lastTimeCalled;
+                let delayRemaining = delay - differnceTime;
+
+                function invokCallback() {
+                    callback.call(this, ...args);
+                    lastTimeCalled = Date.now();
+                }
+
+                if (delayRemaining > 0) {
+                    if (timer) clearTimeout(timer);
+                    timer = setTimeout(invokCallback, delayRemaining);
+                } else {
+                    invokCallback()
+                }
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>
