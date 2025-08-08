@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Flatten II (Objects)</title>
+</head>
+
+<body>
+    <script>
+        function flattenObject(input) {
+            /* Because this flattened object is going to be called recursively, we need a base case here 
+            so we will say if type of input is not equal to object, so we basically are checking as long as 
+            these are primitive values null values or undefined values. so, only problem here is that technically 
+            in JavaScript inputs are also technically considered null values and that will be excluded here because we are explicity
+            excluding out objects so we want to specify null values are okay so we will say or input equals to null then
+            we return input. so, again we are checking if it is not an object or the input is null return the input itself 
+            and That line is acting like a guard clause — a quick “early exit” so the function doesn’t try to 
+            loop through something that isn’t actually an object.*/
+            if (typeof input !== 'object' || input === null) return input;
+
+            // This will store the final flattened result
+            let flattened = {};
+
+            // Loop through each key in the object
+            for (const key in input) {
+
+                // Value of this key
+                const val = input[key];
+
+                // Recursively flatten it
+                const flatVal = flattenObject(val);
+
+                // If the flattened value is still an object (not null)
+                if (typeof flatVal === 'object' && flatVal !== null) {
+                    flattened = { ...flattened, ...flatVal };
+                } else {
+                    flattened[key] = flatVal;
+                }
+            }
+
+            return flattened;
+        }
+
+
+        let input = {
+            a: 1,
+            b: {
+                c: 2,
+                d: 3
+            },
+            e: {
+                f: {
+                    g: 4,
+                    h: null,
+                    i: undefined
+                }
+            }
+        }
+
+        console.log(flattenObject(input));
+
+    </script>
+</body>
+
+</html>
