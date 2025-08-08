@@ -9,6 +9,7 @@
 
 <body>
     <script>
+        // With Recursion
         function flattenObject(input) {
             /* Because this flattened object is going to be called recursively, we need a base case here 
             so we will say if type of input is not equal to object, so we basically are checking as long as 
@@ -29,7 +30,7 @@
                 // Value of this key
                 const val = input[key];
 
-                // Recursively flatten it
+                // This line means that I don’t know if val is simple or still an object. If it’s still an object, I’ll flatten it too before I deal with it.
                 const flatVal = flattenObject(val);
 
                 // If the flattened value is still an object (not null)
@@ -42,6 +43,38 @@
 
             return flattened;
         }
+
+
+
+
+
+
+        // Without Recursion
+        function flattenObject(input) {
+            if (typeof input !== 'object' || input === null) return input;
+
+            let result = {};
+            let stack = [{ obj: input }];
+
+            while (stack.length > 0) {
+                let { obj } = stack.pop();
+
+                for (const key in obj) {
+                    let val = obj[key];
+
+                    if (typeof val === 'object' && val !== null) {
+                        stack.push({ obj: val });
+                    } else {
+                        result[key] = val;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+
+
 
 
         let input = {
