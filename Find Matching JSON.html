@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Matching JSON</title>
+</head>
+
+<body>
+    <script>
+        function findMatchingJSON(data, search) {
+            return data.filter(row => {
+                const dataKeys = Object.keys(row);
+                const searchKeys = Object.keys(search);
+
+                return searchKeys.every(key => {
+                    const everySearchKeyExistsWithinData = dataKeys.includes(key);
+                    if (!everySearchKeyExistsWithinData) return false;
+                    return row[key] === search[key];
+                })
+            })
+        }
+
+        const data = [
+            {
+                name: 'John',
+                company: 'Google',
+                position: 'Software Engineer',
+                level: 'Entry'
+            },
+            {
+                name: 'Ann',
+                company: 'Waymo',
+                position: 'Product Manager',
+                level: 'Entry'
+            },
+        ];
+
+        const match = {
+            position: 'Product Manager',
+            level: 'Entry'
+        }
+
+        console.log(findMatchingJSON(data, match));
+
+    </script>
+</body>
+
+</html>
