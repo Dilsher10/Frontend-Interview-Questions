@@ -46,6 +46,10 @@
             { color: 'blue', type: 'book', age: 17 },
         ];
 
+        const excludes = [
+            { k: 'color', v: 'red' },
+            { k: 'type', v: 'phone' },
+        ];
 
         console.log(excludeItems(items, excludes));
 
