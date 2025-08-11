@@ -41,30 +41,7 @@
 
 
 
-        // Iterative solution
-        function flattenArray(value) {
-            // Initialize an empty array to hold the flattened result
-            let results = [];
-            // Initialize a stack with the input array to manage the iteration
-            let stack = [...value];
 
-            // Loop until the stack is empty
-            while (stack.length) {
-                // Remove and return the last element from the stack
-                let current = stack.pop();
-                // Check if the current element is an array
-                if (Array.isArray(current)) {
-                    // If current is an array, add its elements to the end of the stack
-                    current.forEach(val => stack.push(val));
-                } else {
-                    // If current is not an array, add it to the beginning of the results array
-                    results.unshift(current);
-                }
-            }
-
-            // Return the flattened results array
-            return results;
-        }
 
 
         const arr = [[1, 2, undefined], [[[[3, null, 4]]]], [5, [6], [7]]];
