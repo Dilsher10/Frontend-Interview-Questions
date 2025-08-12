@@ -18,9 +18,38 @@
     </div>
 
     <script>
-        function findMostFrequentWordsInDomTree(root, limit){
+        function findMostFrequentWordsInDomTree(root, limit) {
+            const textMap = {};
 
+            const wordList = root.textContent.split(' ').map(word => {
+                // get rid of spaces
+                word = word.replace(' ', '');
+
+                // get rid of periods
+                word = word.replace('.', '');
+
+                // get rid of new lines
+                word = word.replace('\n', '');
+
+                // lowercase everything
+                word = word.toLowerCase();
+
+                if (word.length) {
+                    if (!textMap[word]) textMap[word] = 0;
+                    textMap[word]++;
+                }
+            });
+
+            const keys = Object.keys(textMap);
+            keys.sort((a, b) => {
+                return textMap[b] - textMap[a];
+            });
+            return keys.splice(0, limit);
         }
+
+        const tree = document.getElementById('root');
+        console.log(findMostFrequentWordsInDomTree(tree, 3));
+
     </script>
 </body>
 
