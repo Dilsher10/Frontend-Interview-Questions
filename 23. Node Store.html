@@ -1,11 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Node Store</title>
 </head>
+
 <body>
-    
+    <script>
+        class NodeStore {
+            
+            _cache = {};
+
+            set(node, value) {
+                const key = Object.keys(this._cache).length;
+                node['__key'] = key;
+                this._cache[key] = value;
+            }
+
+
+            get(node) {
+                const key = this.getKey(node);
+                return this._cache[key];
+            }
+
+
+            has(node) {
+                const key = this.getKey(node);
+                return this._cache[key] !== undefined;
+            }
+
+
+            getKey(node) {
+                return node['__key']
+            }
+        }
+
+
+        const node = document.createElement('p');
+        const node2 = document.createElement('p');
+        const store = new NodeStore();
+
+        store.set(node, 1);
+        store.set(node2, 2);
+
+        console.log(store.get(node));
+        console.log(store.get(node2));
+        console.log(store.get(node));
+
+    </script>
 </body>
+
 </html>
