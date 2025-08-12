@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Next Right Sibling</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="wrapper">
+            <div class="parent">
+                <div class="sub-1">
+                    <p><a class="a"></a></p>
+                </div>
+                <div class="sub-2">
+                    <p><button>Button</button></p>
+                </div>
+                <div class="sub-3">3</div>
+                <div class="sub-4">4</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const target = document.querySelector('.a');
+        const tree = document.querySelector('.container');
+
+        function findNextRightSibling(root, target) {
+            const Q = [tree];
+
+            while (Q.length) {
+                let current = Q.shift();
+
+                if (current === target) {
+                    const nextSibling = Q.shift();
+                    if (!nextSibling) return null;
+                    return nextSibling;
+                }
+
+                if (current.children) {
+                    Q.push(...current.children);
+                }
+            }
+        }
+
+        console.log(findNextRightSibling(tree, target).textContent);
+
+    </script>
+</body>
+
+</html>
