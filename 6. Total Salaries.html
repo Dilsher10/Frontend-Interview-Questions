@@ -1,11 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Total Salaries</title>
 </head>
+
 <body>
-    
+    <script>
+        function calculateTotalSalaries(department) {
+            // Base case: if department is an array, it's a list of employees
+            if (Array.isArray(department)) {
+                return department.reduce((sum, employee) => sum + employee.salary, 0);
+            }
+
+            // Recursive case: department is an object with sub-departments
+            let total = 0;
+            for (let subDept of Object.values(department)) {
+                total += calculateTotalSalaries(subDept);
+            }
+            return total;
+        }
+
+    </script>
 </body>
+
 </html>
