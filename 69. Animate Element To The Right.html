@@ -4,15 +4,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Animate Element To The Right</title>
+    <style>
+        #div{
+            position: absolute;
+            left: 0;
+            top: 0;
+            transition: 1s all;
+        }
+    </style>
 </head>
 
 <body>
     <div id="div">Hello</div>
     <script>
-        function animateRight(elementID, distance, duration) {
-            // Write your code here
-        }
+
+        const element = document.getElementById('div');
+
+        setTimeout(() => {
+            element.style.left = `${400}px`;
+        },1);
+
+
+        
+        // function animateRight(elementID, distance, duration) {
+        //     // Write your code here
+        // }
     </script>
 </body>
 
