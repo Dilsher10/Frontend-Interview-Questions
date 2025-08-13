@@ -8,6 +8,22 @@
 </head>
 
 <body>
+
+    <!-- You are tasked with implementing a function named calculateTotalSalaries that will navigate through a company’s
+    hierarchical structure to calculate the cumulative sum of salaries for all employees. The company’s structure is
+    depicted as a nested object, where each node can either be a department containing further sub-departments or an
+    array of employees. Each employee is represented by an object containing their name and salary.
+
+    The main challenge lies in efficiently traversing this nested structure, which may vary in depth and complexity
+    across different companies, to aggregate all the salary values. This problem not only tests your ability to work
+    with nested data structures but also assesses your recursive thinking and problem-solving skills.
+
+    Input: A nested object representing the company’s structure, where each department can contain sub-departments or an
+    array of employees with their respective salaries.
+
+    Output: A single integer value representing the total sum of salaries of all employees across the entire company. -->
+
+
     <script>
         function calculateTotalSalaries(department) {
             // Base case: if department is an array, it's a list of employees
@@ -15,7 +31,8 @@
                 return department.reduce((sum, employee) => sum + employee.salary, 0);
             }
 
-            // Recursive case: department is an object with sub-departments
+            // Recursive case: If it’s an object, we loop through its sub-departments and call the same function on each one.
+            // department is an object with sub-departments
             let total = 0;
             for (let subDept of Object.values(department)) {
                 total += calculateTotalSalaries(subDept);
