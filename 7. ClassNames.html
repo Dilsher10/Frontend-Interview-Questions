@@ -1,11 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ClassNames</title>
 </head>
+
 <body>
-    
+    <script>
+        function classNames(...args) {
+            const classes = [];
+
+            function processValue(value) {
+                if (!value) return; // ignore falsy except number 0
+                if (typeof value === 'string' || typeof value === 'number') {
+                    classes.push(String(value));
+                } else if (Array.isArray(value)) {
+                    value.forEach(processValue);
+                } else if (typeof value === 'object') {
+                    for (const key in value) {
+                        if (value[key]) {
+                            classes.push(key);
+                        }
+                    }
+                }
+            }
+
+            args.forEach(processValue);
+            return classes.join(' ');
+        }
+
+
+
+        console.log(
+            classNames(
+                'btn',
+                ['btn-primary', null, ['nested', { hidden: false }]],
+                { active: true, disabled: false },
+                42,
+                ''
+            )
+        );
+        // Output: "btn btn-primary nested active 42"
+    </script>
 </body>
+
 </html>
