@@ -23,6 +23,26 @@
             return total;
         }
 
+
+
+        const company = {
+            sales: [
+                { name: "John", salary: 1000 },
+                { name: "Alice", salary: 1200 }
+            ],
+            development: {
+                frontend: [
+                    { name: "Bob", salary: 1500 },
+                    { name: "Charlie", salary: 1600 }
+                ],
+                backend: [
+                    { name: "Dave", salary: 1700 }
+                ]
+            }
+        };
+
+        console.log(calculateTotalSalaries(company));
+        // Output: 7000
     </script>
 </body>
 
