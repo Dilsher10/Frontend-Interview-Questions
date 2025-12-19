@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Animate Element To The Right</title>
     <style>
-        #div {
+        #element {
             position: absolute;
             left: 0;
             top: 0;
@@ -16,10 +16,12 @@
 </head>
 
 <body>
-    <div id="div">Hello</div>
+    <div id="element">Hello</div>
+
     <script>
 
-        const element = document.getElementById('div');
+        // Basic Approach
+        const element = document.getElementById('element');
 
         setTimeout(() => {
             element.style.left = `${400}px`;
@@ -27,9 +29,50 @@
 
 
 
-        // function animateRight(elementID, distance, duration) {
-        //     // Write your code here
-        // }
+
+        // Optimized Approach
+        function animateRight(elementID, distance, duration) {
+            // Will store the timestamp when the animation starts
+            let starttime; 
+
+            // Get the DOM element by ID
+            const element = document.getElementById(elementID);
+
+            // Ensure the element exists before proceeding
+            if (!element) {
+                throw new Error('Element must be defined');
+            }
+
+            // Animation function — called repeatedly by requestAnimationFrame
+            function animate(timestamp) {
+                // Time elapsed since animation start
+                const runtime = timestamp - starttime;
+
+                // Progress ratio (0 → 1)
+                const progress = runtime / duration;
+
+                // Calculate new left position in pixels
+                const leftPosition = progress * distance;
+
+                // Apply new position to the element's style
+                element.style.left = `${leftPosition}px`;
+
+                // Continue animation until duration is reached
+                if (runtime < duration) {
+                    requestAnimationFrame(animate);
+                }
+            }
+
+            // Start the animation
+            requestAnimationFrame(timestamp => {
+                starttime = timestamp; // Save the start time
+                animate(starttime);    // Begin animating
+            });
+        }
+
+
+
+        animateRight('element', 400, 1000);
     </script>
 </body>
 
